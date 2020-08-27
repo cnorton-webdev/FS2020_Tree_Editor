@@ -124,6 +124,44 @@ namespace FS2020_Tree_Size_Editor
 
         private void BtnSave_Click(object sender, EventArgs e)
         {
+            for (int i = 0; i < treeTabs.TabPages.Count; i++)
+            {
+                if (noScrubs.Checked && (treeTabs.TabPages[i].Text.Contains("shrub") || treeTabs.TabPages[i].Text.Contains("scrub")))
+                {
+                    continue;
+                }
+                if (noCacti.Checked && treeTabs.TabPages[i].Text.Contains("cactus"))
+                {
+                    continue;
+                }
+                for (int x = 0; x <= 20; x++)
+                {
+                    //TODO: Make this for loop more dynamic instead of hard coded at 20.
+                    Control[] numMins = treeTabs.TabPages[i].Controls.Find("minNum_" + x, true);
+                    Control[] numMaxs = treeTabs.TabPages[i].Controls.Find("maxNum_" + x, true);
+                    int varId = x - 1;
+                    if (numMins != null && numMins.Length > 0)
+                    {
+                        foreach (NumericUpDown numMin in numMins)
+                        {
+                                XmlNodeList variations = xmlTrees.DocumentElement.SelectNodes("//Species[@name='" + treeTabs.TabPages[i].Text + "']/Variations/Variation/Size");
+                                if (x <= variations.Count)
+                                {
+                                    variations[varId].Attributes["min"].Value = numMin.Value.ToString();
+                                    if (numMaxs != null)
+                                    {
+                                        NumericUpDown numMax = (NumericUpDown)numMaxs[0];
+                                        variations[varId].Attributes["max"].Value = numMax.Value.ToString();
+                                    }
+                                }
+                        }
+                    }
+                    else if (x > 0 && numMins == null)
+                    {
+                        break;
+                    }
+                }
+            }
             xmlTrees.Save(Properties.Settings.Default.xmlFile);
         }
 
