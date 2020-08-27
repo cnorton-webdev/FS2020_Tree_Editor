@@ -26,8 +26,12 @@ namespace FS2020_Tree_Size_Editor
             }
             else
             {
-                Form2 f = new Form2();
-                f.Show();
+                DialogResult result = MessageBox.Show("Oops! Looks like we don't have your 10-asobo_species.xml file location saved. Click OK below to set the file location. If you're not sure where this file is located, in the location you installed the game:\n\nFor Microsoft Store installs:\nOfficial\\OneStore\\fs - base\\vegetation\n\nFor Steam installs\nOfficial\\Steam\\fs - base\\vegetation", "Vegetation file location not found", MessageBoxButtons.OK);
+                if (result == DialogResult.OK)
+                {
+                    openXML.ShowDialog();
+                }
+
             }
         }
         public void loadXML()
@@ -144,16 +148,16 @@ namespace FS2020_Tree_Size_Editor
                     {
                         foreach (NumericUpDown numMin in numMins)
                         {
-                                XmlNodeList variations = xmlTrees.DocumentElement.SelectNodes("//Species[@name='" + treeTabs.TabPages[i].Text + "']/Variations/Variation/Size");
-                                if (x <= variations.Count)
+                            XmlNodeList variations = xmlTrees.DocumentElement.SelectNodes("//Species[@name='" + treeTabs.TabPages[i].Text + "']/Variations/Variation/Size");
+                            if (x <= variations.Count)
+                            {
+                                variations[varId].Attributes["min"].Value = numMin.Value.ToString();
+                                if (numMaxs != null)
                                 {
-                                    variations[varId].Attributes["min"].Value = numMin.Value.ToString();
-                                    if (numMaxs != null)
-                                    {
-                                        NumericUpDown numMax = (NumericUpDown)numMaxs[0];
-                                        variations[varId].Attributes["max"].Value = numMax.Value.ToString();
-                                    }
+                                    NumericUpDown numMax = (NumericUpDown)numMaxs[0];
+                                    variations[varId].Attributes["max"].Value = numMax.Value.ToString();
                                 }
+                            }
                         }
                     }
                     else if (x > 0 && numMins == null)
@@ -327,6 +331,13 @@ namespace FS2020_Tree_Size_Editor
                     }
                 }
             }
+        }
+
+        private void OpenXML_FileOk(object sender, CancelEventArgs e)
+        {
+            Properties.Settings.Default.xmlFile = openXML.FileName;
+            Properties.Settings.Default.Save();
+            loadXML();
         }
     }
 }

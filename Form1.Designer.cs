@@ -44,6 +44,7 @@ namespace FS2020_Tree_Size_Editor
             this.btnSave = new System.Windows.Forms.Button();
             this.saveBackup = new System.Windows.Forms.SaveFileDialog();
             this.treeTabs = new System.Windows.Forms.TabControl();
+            this.openXML = new System.Windows.Forms.OpenFileDialog();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.changeMax)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.changeMin)).BeginInit();
@@ -195,6 +196,12 @@ namespace FS2020_Tree_Size_Editor
             this.treeTabs.Size = new System.Drawing.Size(1042, 326);
             this.treeTabs.TabIndex = 92;
             // 
+            // openXML
+            // 
+            this.openXML.FileName = "10-asobo_species.xml";
+            this.openXML.Filter = "XML Files (*.xml)|*.xml|All Files|*.*";
+            this.openXML.FileOk += new System.ComponentModel.CancelEventHandler(this.OpenXML_FileOk);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -235,6 +242,7 @@ namespace FS2020_Tree_Size_Editor
         private System.Windows.Forms.Button btnSave;
         private System.Windows.Forms.SaveFileDialog saveBackup;
         private System.Windows.Forms.TabControl treeTabs;
+        private System.Windows.Forms.OpenFileDialog openXML;
     }
 }
 
