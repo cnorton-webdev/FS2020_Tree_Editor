@@ -23,9 +23,7 @@ namespace FS2020_Tree_Size_Editor
         {
             Properties.Settings.Default.xmlFile = openXML.FileName;
             Properties.Settings.Default.Save();
-            Form1 f = new Form1();
-            f.loadXML();
-            Close();
+            MessageBox.Show("File location saved! Please restart the program for file location to take affect.", "Succes!", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
         }
 
         private void Button1_Click(object sender, EventArgs e)
