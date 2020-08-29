@@ -26,12 +26,48 @@ namespace FS2020_Tree_Size_Editor.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string installLocation {
+            get {
+                return ((string)(this["installLocation"]));
+            }
+            set {
+                this["installLocation"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
         public string xmlFile {
             get {
                 return ((string)(this["xmlFile"]));
             }
             set {
                 this["xmlFile"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string manifestFile {
+            get {
+                return ((string)(this["manifestFile"]));
+            }
+            set {
+                this["manifestFile"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string layoutFile {
+            get {
+                return ((string)(this["layoutFile"]));
+            }
+            set {
+                this["layoutFile"] = value;
             }
         }
     }

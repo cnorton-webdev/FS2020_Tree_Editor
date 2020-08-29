@@ -29,7 +29,7 @@ namespace FS2020_Tree_Size_Editor
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.massEditGrp = new System.Windows.Forms.GroupBox();
             this.btnAddMax = new System.Windows.Forms.Button();
             this.btnSubtractMax = new System.Windows.Forms.Button();
             this.btnAddMin = new System.Windows.Forms.Button();
@@ -44,30 +44,32 @@ namespace FS2020_Tree_Size_Editor
             this.btnSave = new System.Windows.Forms.Button();
             this.saveBackup = new System.Windows.Forms.SaveFileDialog();
             this.treeTabs = new System.Windows.Forms.TabControl();
-            this.openXML = new System.Windows.Forms.OpenFileDialog();
-            this.groupBox1.SuspendLayout();
+            this.openFolder = new System.Windows.Forms.FolderBrowserDialog();
+            this.button1 = new System.Windows.Forms.Button();
+            this.massEditGrp.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.changeMax)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.changeMin)).BeginInit();
             this.SuspendLayout();
             // 
-            // groupBox1
+            // massEditGrp
             // 
-            this.groupBox1.Controls.Add(this.btnAddMax);
-            this.groupBox1.Controls.Add(this.btnSubtractMax);
-            this.groupBox1.Controls.Add(this.btnAddMin);
-            this.groupBox1.Controls.Add(this.btnSubtractMin);
-            this.groupBox1.Controls.Add(this.changeMax);
-            this.groupBox1.Controls.Add(this.label53);
-            this.groupBox1.Controls.Add(this.noCacti);
-            this.groupBox1.Controls.Add(this.noScrubs);
-            this.groupBox1.Controls.Add(this.changeMin);
-            this.groupBox1.Controls.Add(this.label52);
-            this.groupBox1.Location = new System.Drawing.Point(333, 344);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(407, 128);
-            this.groupBox1.TabIndex = 89;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Mass edit";
+            this.massEditGrp.Controls.Add(this.btnAddMax);
+            this.massEditGrp.Controls.Add(this.btnSubtractMax);
+            this.massEditGrp.Controls.Add(this.btnAddMin);
+            this.massEditGrp.Controls.Add(this.btnSubtractMin);
+            this.massEditGrp.Controls.Add(this.changeMax);
+            this.massEditGrp.Controls.Add(this.label53);
+            this.massEditGrp.Controls.Add(this.noCacti);
+            this.massEditGrp.Controls.Add(this.noScrubs);
+            this.massEditGrp.Controls.Add(this.changeMin);
+            this.massEditGrp.Controls.Add(this.label52);
+            this.massEditGrp.Enabled = false;
+            this.massEditGrp.Location = new System.Drawing.Point(333, 344);
+            this.massEditGrp.Name = "massEditGrp";
+            this.massEditGrp.Size = new System.Drawing.Size(407, 128);
+            this.massEditGrp.TabIndex = 89;
+            this.massEditGrp.TabStop = false;
+            this.massEditGrp.Text = "Mass edit";
             // 
             // btnAddMax
             // 
@@ -163,6 +165,7 @@ namespace FS2020_Tree_Size_Editor
             // 
             // btnSaveBackup
             // 
+            this.btnSaveBackup.Enabled = false;
             this.btnSaveBackup.Location = new System.Drawing.Point(554, 478);
             this.btnSaveBackup.Name = "btnSaveBackup";
             this.btnSaveBackup.Size = new System.Drawing.Size(91, 23);
@@ -173,6 +176,7 @@ namespace FS2020_Tree_Size_Editor
             // 
             // btnSave
             // 
+            this.btnSave.Enabled = false;
             this.btnSave.Location = new System.Drawing.Point(423, 478);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(98, 23);
@@ -196,21 +200,33 @@ namespace FS2020_Tree_Size_Editor
             this.treeTabs.Size = new System.Drawing.Size(1042, 326);
             this.treeTabs.TabIndex = 92;
             // 
-            // openXML
+            // openFolder
             // 
-            this.openXML.FileName = "10-asobo_species.xml";
-            this.openXML.Filter = "XML Files (*.xml)|*.xml|All Files|*.*";
-            this.openXML.FileOk += new System.ComponentModel.CancelEventHandler(this.OpenXML_FileOk);
+            this.openFolder.RootFolder = System.Environment.SpecialFolder.MyComputer;
+            this.openFolder.ShowNewFolderButton = false;
+            // 
+            // button1
+            // 
+            this.button1.BackColor = System.Drawing.Color.DarkRed;
+            this.button1.ForeColor = System.Drawing.Color.White;
+            this.button1.Location = new System.Drawing.Point(933, 478);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(121, 23);
+            this.button1.TabIndex = 93;
+            this.button1.Text = "Reset saved settings";
+            this.button1.UseVisualStyleBackColor = false;
+            this.button1.Click += new System.EventHandler(this.Button1_Click);
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1066, 512);
+            this.Controls.Add(this.button1);
             this.Controls.Add(this.treeTabs);
             this.Controls.Add(this.btnSave);
             this.Controls.Add(this.btnSaveBackup);
-            this.Controls.Add(this.groupBox1);
+            this.Controls.Add(this.massEditGrp);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(2);
@@ -218,8 +234,8 @@ namespace FS2020_Tree_Size_Editor
             this.Name = "Form1";
             this.Text = "FS2020 Tree Size Editor";
             this.Load += new System.EventHandler(this.Form1_Load);
-            this.groupBox1.ResumeLayout(false);
-            this.groupBox1.PerformLayout();
+            this.massEditGrp.ResumeLayout(false);
+            this.massEditGrp.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.changeMax)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.changeMin)).EndInit();
             this.ResumeLayout(false);
@@ -227,7 +243,7 @@ namespace FS2020_Tree_Size_Editor
         }
 
         #endregion
-        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.GroupBox massEditGrp;
         private System.Windows.Forms.Button btnSubtractMin;
         private System.Windows.Forms.NumericUpDown changeMax;
         private System.Windows.Forms.Label label53;
@@ -242,7 +258,8 @@ namespace FS2020_Tree_Size_Editor
         private System.Windows.Forms.Button btnSave;
         private System.Windows.Forms.SaveFileDialog saveBackup;
         private System.Windows.Forms.TabControl treeTabs;
-        private System.Windows.Forms.OpenFileDialog openXML;
+        private System.Windows.Forms.FolderBrowserDialog openFolder;
+        private System.Windows.Forms.Button button1;
     }
 }
 

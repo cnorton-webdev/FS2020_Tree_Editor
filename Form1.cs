@@ -1,13 +1,10 @@
 using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Xml;
+using System.IO;
+
 namespace FS2020_Tree_Size_Editor
 {
     public partial class Form1 : Form
@@ -17,27 +14,60 @@ namespace FS2020_Tree_Size_Editor
         {
             InitializeComponent();
         }
-
         private void Form1_Load(object sender, EventArgs e)
         {
-            if (Properties.Settings.Default.xmlFile != "")
+            if (Properties.Settings.Default.installLocation != "")
             {
                 loadXML();
             }
             else
             {
-                DialogResult result = MessageBox.Show("Oops! Looks like we don't have your 10-asobo_species.xml file location saved. Click OK below to set the file location. If you're not sure where this file is located, in the location you installed the game:\n\nFor Microsoft Store installs:\nOfficial\\OneStore\\fs - base\\vegetation\n\nFor Steam installs\nOfficial\\Steam\\fs - base\\vegetation", "Vegetation file location not found", MessageBoxButtons.OK);
+                DialogResult result = MessageBox.Show("Oops! Looks like we don't have your game location saved. Click OK below to set the location of where you instructed the installer to install Flight Simulator 2020 to.", "Flight Simulator folder location not found", MessageBoxButtons.OK);
                 if (result == DialogResult.OK)
                 {
-                    openXML.ShowDialog();
+                    DialogResult folderDlg = openFolder.ShowDialog();
+                    if (folderDlg == DialogResult.OK)
+                    {
+                        Properties.Settings.Default.installLocation = openFolder.SelectedPath;
+                        Properties.Settings.Default.xmlFile = openFolder.SelectedPath + "\\Community\\Tree-Editor\\vegetation\\10-asobo_species.xml";
+                        Properties.Settings.Default.layoutFile = openFolder.SelectedPath + "\\Community\\Tree-Editor\\layout.json";
+                        Properties.Settings.Default.manifestFile = openFolder.SelectedPath + "\\Community\\Tree-Editor\\manifest.json";
+                        Properties.Settings.Default.Save();
+
+                        loadXML();
+                    }
                 }
 
             }
         }
         public void loadXML()
         {
-            xmlTrees.Load(Properties.Settings.Default.xmlFile);
+            string installFolder = Properties.Settings.Default.installLocation;
+            string xmlFile = "";
+            // Load initial data, this could be from the core file or community if we've already saved there.
+            // Have we already saved into the community folder?
+            if (Directory.Exists(installFolder + "\\Community\\Tree-Editor\\vegetation") && File.Exists(installFolder + "\\Community\\Tree-Editor\\vegetation\\10-asobo_species.xml"))
+            {
+                xmlFile = installFolder + "\\Community\\Tree-Editor\\vegetation\\10-asobo_species.xml";
+            }
+            // Microsoft Store
+            else if (Directory.Exists(installFolder + "\\Official\\OneStore\\fs-base\\vegetation") && File.Exists(installFolder + "\\Official\\OneStore\\fs-base\\vegetation\\10-asobo_species.xml"))
+            {
+                xmlFile = installFolder + "\\Official\\OneStore\\fs-base\\vegetation\\10-asobo_species.xml";
+            }
+            // Steam
+            else if (Directory.Exists(installFolder + "\\Official\\Steam\\fs-base\\vegetation") && File.Exists(installFolder + "\\Official\\Steam\\fs-base\\vegetation\\10-asobo_species.xml"))
+            {
+                xmlFile = installFolder + "\\Official\\Steam\\fs-base\\vegetation\\10-asobo_species.xml";
+            } else
+            {
+                MessageBox.Show("We can't seem to locate your 10-asobo_species.xml file. Please close the program, verify your install location and try again.", "Error locating file", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            xmlTrees.Load(xmlFile);
             XmlNodeList elemList = xmlTrees.GetElementsByTagName("Species");
+
             for (int i = 0; i < elemList.Count; i++)
             {
                 treeTabs.TabPages.Add(elemList[i].Attributes.Item(0).Value);
@@ -83,6 +113,7 @@ namespace FS2020_Tree_Size_Editor
                     treeTabs.TabPages[curTab].Controls.Add(maxNum);
                 }
             }
+
             for (int i = 0; i < treeTabs.TabPages.Count; i++)
             {
                 XmlNodeList variations = xmlTrees.DocumentElement.SelectNodes("//Species[@name='" + treeTabs.TabPages[i].Text + "']/Variations/Variation/Size");
@@ -114,6 +145,9 @@ namespace FS2020_Tree_Size_Editor
                     }
                 }
             }
+            massEditGrp.Enabled = true;
+            btnSaveBackup.Enabled = true;
+            btnSave.Enabled = true;
         }
 
         private void BtnSaveBackup_Click(object sender, EventArgs e)
@@ -166,7 +200,21 @@ namespace FS2020_Tree_Size_Editor
                     }
                 }
             }
+
+            string installFolder = Properties.Settings.Default.installLocation;
+            if (Directory.Exists(installFolder + "\\Community\\Tree-Editor\\vegetation") == false)
+            {
+                Directory.CreateDirectory(installFolder + "\\Community\\Tree-Editor\\vegetation");
+            }
             xmlTrees.Save(Properties.Settings.Default.xmlFile);
+
+            int xmlFileSize = (int)new FileInfo(Properties.Settings.Default.xmlFile).Length;
+            Layout layout = new Layout();
+            layout.setSize(xmlFileSize);
+            File.WriteAllText(Properties.Settings.Default.layoutFile, layout.getJson());
+            Manifest manifest = new Manifest();
+            manifest.setSize(xmlFileSize);
+            File.WriteAllText(Properties.Settings.Default.manifestFile, manifest.getJson());
         }
 
         private void BtnSubtractMin_Click(object sender, EventArgs e)
@@ -333,11 +381,54 @@ namespace FS2020_Tree_Size_Editor
             }
         }
 
-        private void OpenXML_FileOk(object sender, CancelEventArgs e)
+        private void Button1_Click(object sender, EventArgs e)
         {
-            Properties.Settings.Default.xmlFile = openXML.FileName;
-            Properties.Settings.Default.Save();
-            loadXML();
+            DialogResult result = MessageBox.Show("WARNING: You are about to reset all saved location settings! You will be asked again upon launch of this program to set your game path. Upon completion of resetting this data the program will close. Continue?", "Reset Saved Locations", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation);
+            if (result == DialogResult.Yes)
+            {
+                Properties.Settings.Default.Reset();
+                Close();
+            }
+        }
+    }
+
+    public class Layout
+    {
+        public int size = 0;
+        public void setSize(int fileSize)
+        {
+            size = fileSize;
+        }
+        public string getJson()
+        {
+            return "{\n  \"content\": [\n    {\n      \"path\": \"vegetation/10-asobo_species.xml\",\n      \"size\": " + size + ",\n      \"date\": 132387590510000000\n    }\n  ]\n}";
+        }
+    }
+    public class Manifest
+    {
+        private string totalSize = "".PadLeft(20, '0');
+        public void setSize(int fileSize)
+        {
+            this.totalSize = fileSize.ToString().PadLeft(20 - fileSize.ToString().Length, '0');
+        }
+        public string getJson()
+        {
+            return "{\n" +
+                "  \"dependencies\": [],\n" +
+                "  \"content_type\": \"CORE\",\n" +
+                "  \"title\": \"\",\n" +
+                "  \"manufacturer\": \"\",\n" +
+                "  \"creator\": \"community fix\",\n" +
+                "  \"package_version\": \"0.1.80\",\n" +
+                "  \"minimum_game_version\": \"1.7.12\",\n" +
+                "  \"release_notes\": {\n" +
+                "    \"neutral\": {\n" +
+                "      \"LastUpdate\": \"\",\n" +
+                "      \"OlderHistory\": \"\"\n" +
+                "    }\n" +
+                "  },\n" +
+                "  \"total_package_size\": \"" + this.totalSize + "\"\n" +
+                "}";
         }
     }
 }
