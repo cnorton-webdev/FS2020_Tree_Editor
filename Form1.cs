@@ -381,14 +381,21 @@ namespace FS2020_Tree_Size_Editor
             }
         }
 
-        private void Button1_Click(object sender, EventArgs e)
+        private void BtnReload_Click(object sender, EventArgs e)
         {
-            DialogResult result = MessageBox.Show("WARNING: You are about to reset all saved location settings! You will be asked again upon launch of this program to set your game path. Upon completion of resetting this data the program will close. Continue?", "Reset Saved Locations", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation);
-            if (result == DialogResult.Yes)
-            {
-                Properties.Settings.Default.Reset();
-                Close();
-            }
+            treeTabs.TabPages.Clear();
+            loadXML();
+        }
+
+        private void SettingsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Settings settingsForm = new Settings();
+            settingsForm.Show();
+        }
+
+        private void ExitToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Close();
         }
     }
 

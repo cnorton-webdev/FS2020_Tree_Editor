@@ -45,10 +45,15 @@ namespace FS2020_Tree_Size_Editor
             this.saveBackup = new System.Windows.Forms.SaveFileDialog();
             this.treeTabs = new System.Windows.Forms.TabControl();
             this.openFolder = new System.Windows.Forms.FolderBrowserDialog();
-            this.button1 = new System.Windows.Forms.Button();
+            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
+            this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.settingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.btnReload = new System.Windows.Forms.Button();
             this.massEditGrp.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.changeMax)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.changeMin)).BeginInit();
+            this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // massEditGrp
@@ -194,10 +199,10 @@ namespace FS2020_Tree_Size_Editor
             // 
             // treeTabs
             // 
-            this.treeTabs.Location = new System.Drawing.Point(12, 12);
+            this.treeTabs.Location = new System.Drawing.Point(12, 27);
             this.treeTabs.Name = "treeTabs";
             this.treeTabs.SelectedIndex = 0;
-            this.treeTabs.Size = new System.Drawing.Size(1042, 326);
+            this.treeTabs.Size = new System.Drawing.Size(1042, 311);
             this.treeTabs.TabIndex = 92;
             // 
             // openFolder
@@ -205,30 +210,63 @@ namespace FS2020_Tree_Size_Editor
             this.openFolder.RootFolder = System.Environment.SpecialFolder.MyComputer;
             this.openFolder.ShowNewFolderButton = false;
             // 
-            // button1
+            // menuStrip1
             // 
-            this.button1.BackColor = System.Drawing.Color.DarkRed;
-            this.button1.ForeColor = System.Drawing.Color.White;
-            this.button1.Location = new System.Drawing.Point(933, 478);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(121, 23);
-            this.button1.TabIndex = 93;
-            this.button1.Text = "Reset saved settings";
-            this.button1.UseVisualStyleBackColor = false;
-            this.button1.Click += new System.EventHandler(this.Button1_Click);
+            this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.fileToolStripMenuItem});
+            this.menuStrip1.Location = new System.Drawing.Point(0, 0);
+            this.menuStrip1.Name = "menuStrip1";
+            this.menuStrip1.Size = new System.Drawing.Size(1066, 24);
+            this.menuStrip1.TabIndex = 95;
+            this.menuStrip1.Text = "menuStrip1";
+            // 
+            // fileToolStripMenuItem
+            // 
+            this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.settingsToolStripMenuItem,
+            this.exitToolStripMenuItem});
+            this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
+            this.fileToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
+            this.fileToolStripMenuItem.Text = "&File";
+            // 
+            // settingsToolStripMenuItem
+            // 
+            this.settingsToolStripMenuItem.Name = "settingsToolStripMenuItem";
+            this.settingsToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.settingsToolStripMenuItem.Text = "&Settings";
+            this.settingsToolStripMenuItem.Click += new System.EventHandler(this.SettingsToolStripMenuItem_Click);
+            // 
+            // exitToolStripMenuItem
+            // 
+            this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.exitToolStripMenuItem.Text = "E&xit";
+            this.exitToolStripMenuItem.Click += new System.EventHandler(this.ExitToolStripMenuItem_Click);
+            // 
+            // btnReload
+            // 
+            this.btnReload.Location = new System.Drawing.Point(957, 344);
+            this.btnReload.Name = "btnReload";
+            this.btnReload.Size = new System.Drawing.Size(97, 23);
+            this.btnReload.TabIndex = 96;
+            this.btnReload.Text = "Reload XML File";
+            this.btnReload.UseVisualStyleBackColor = true;
+            this.btnReload.Click += new System.EventHandler(this.BtnReload_Click);
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1066, 512);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.btnReload);
             this.Controls.Add(this.treeTabs);
             this.Controls.Add(this.btnSave);
             this.Controls.Add(this.btnSaveBackup);
             this.Controls.Add(this.massEditGrp);
+            this.Controls.Add(this.menuStrip1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.MainMenuStrip = this.menuStrip1;
             this.Margin = new System.Windows.Forms.Padding(2);
             this.MaximizeBox = false;
             this.Name = "Form1";
@@ -238,7 +276,10 @@ namespace FS2020_Tree_Size_Editor
             this.massEditGrp.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.changeMax)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.changeMin)).EndInit();
+            this.menuStrip1.ResumeLayout(false);
+            this.menuStrip1.PerformLayout();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -259,7 +300,11 @@ namespace FS2020_Tree_Size_Editor
         private System.Windows.Forms.SaveFileDialog saveBackup;
         private System.Windows.Forms.TabControl treeTabs;
         private System.Windows.Forms.FolderBrowserDialog openFolder;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.MenuStrip menuStrip1;
+        private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem settingsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem;
+        private System.Windows.Forms.Button btnReload;
     }
 }
 
