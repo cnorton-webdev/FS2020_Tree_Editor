@@ -72,6 +72,7 @@
             this.cmbArtifical.Name = "cmbArtifical";
             this.cmbArtifical.Size = new System.Drawing.Size(61, 21);
             this.cmbArtifical.TabIndex = 31;
+            this.cmbArtifical.SelectedIndexChanged += new System.EventHandler(this.CmbArtifical_SelectedIndexChanged);
             // 
             // lstRegions
             // 

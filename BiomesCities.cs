@@ -398,19 +398,19 @@ namespace FS2020_Tree_Size_Editor
             catch
             { }
         }
-        /*
-private void NumScaleFactor_ValueChanged(object sender, EventArgs e)
-{
-   try
-   {
-       string biomeRule = cmbRules.SelectedItem.ToString();
-       // Get the specific Biome rule node
-       XmlNode biomeRuleNode = xmlBiomesCities.DocumentElement.SelectSingleNode("//BiomeRule[@name='" + biomeRule + "']");
-       // Scale factor is always the 3rd attribute in the node
-       biomeRuleNode.Attributes[2].Value = numScaleFactor.Value.ToString();
-   }
-   catch
-   { }
-}*/
+
+        private void CmbArtifical_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                string biomeRule = cmbRules.SelectedItem.ToString();
+                // Get the specific Biome rule node
+                XmlNode biomeRuleNode = xmlBiomesCities.DocumentElement.SelectSingleNode("//BiomeRule[@name='" + biomeRule + "']");
+                // Species instances is always the 2nd attribute in the node
+                biomeRuleNode.Attributes[2].Value = cmbArtifical.SelectedItem.ToString();
+            }
+            catch
+            { }
+        }
     }
 }
