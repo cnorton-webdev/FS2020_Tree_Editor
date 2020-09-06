@@ -60,6 +60,19 @@
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
+            // cmbArtifical
+            // 
+            this.cmbArtifical.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbArtifical.FormattingEnabled = true;
+            this.cmbArtifical.Items.AddRange(new object[] {
+            "yes",
+            "no"});
+            this.cmbArtifical.Location = new System.Drawing.Point(564, 26);
+            this.cmbArtifical.MaxDropDownItems = 2;
+            this.cmbArtifical.Name = "cmbArtifical";
+            this.cmbArtifical.Size = new System.Drawing.Size(61, 21);
+            this.cmbArtifical.TabIndex = 31;
+            // 
             // lstRegions
             // 
             this.lstRegions.FormattingEnabled = true;
@@ -173,11 +186,11 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(558, 9);
+            this.label6.Location = new System.Drawing.Point(561, 9);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(144, 13);
+            this.label6.Size = new System.Drawing.Size(97, 13);
             this.label6.TabIndex = 11;
-            this.label6.Text = "Artificial surfaces scale factor";
+            this.label6.Text = "Only Artificial Areas";
             // 
             // btnSave
             // 
@@ -324,19 +337,6 @@
             this.lstAllRegions.Sorted = true;
             this.lstAllRegions.TabIndex = 16;
             // 
-            // cmbArtifical
-            // 
-            this.cmbArtifical.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cmbArtifical.FormattingEnabled = true;
-            this.cmbArtifical.Items.AddRange(new object[] {
-            "yes",
-            "no"});
-            this.cmbArtifical.Location = new System.Drawing.Point(564, 26);
-            this.cmbArtifical.MaxDropDownItems = 2;
-            this.cmbArtifical.Name = "cmbArtifical";
-            this.cmbArtifical.Size = new System.Drawing.Size(61, 21);
-            this.cmbArtifical.TabIndex = 31;
-            // 
             // BiomesCities
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -361,10 +361,10 @@
             this.Name = "BiomesCities";
             this.Text = "FS2020 Tree Editor - Biomes Cities";
             this.Load += new System.EventHandler(this.BiomesCities_Load);
+            ((System.ComponentModel.ISupportInitialize)(this.numSpawnRatio)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numSpeciesInstances)).EndInit();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numSpeciesInstances)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numSpawnRatio)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
