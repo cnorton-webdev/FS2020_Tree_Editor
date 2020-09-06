@@ -30,6 +30,7 @@ namespace FS2020_Tree_Size_Editor
                     {
                         Properties.Settings.Default.installLocation = openFolder.SelectedPath;
                         Properties.Settings.Default.xmlFile = openFolder.SelectedPath + "\\Community\\Tree-Editor\\vegetation\\10-asobo_species.xml";
+                        Properties.Settings.Default.xmlFileBiomes = openFolder.SelectedPath + "\\Community\\Tree-Editor\\vegetation\\10-asobo_biomes.xml";
                         Properties.Settings.Default.layoutFile = openFolder.SelectedPath + "\\Community\\Tree-Editor\\layout.json";
                         Properties.Settings.Default.manifestFile = openFolder.SelectedPath + "\\Community\\Tree-Editor\\manifest.json";
                         Properties.Settings.Default.Save();
@@ -212,6 +213,10 @@ namespace FS2020_Tree_Size_Editor
             Layout layout = new Layout();
             layout.setSize(xmlFileSize);
             File.WriteAllText(Properties.Settings.Default.layoutFile, layout.getJson());
+            if (File.Exists(Properties.Settings.Default.xmlFileBiomes))
+            {
+                xmlFileSize += (int)new FileInfo(Properties.Settings.Default.xmlFileBiomes).Length;
+            }
             Manifest manifest = new Manifest();
             manifest.setSize(xmlFileSize);
             File.WriteAllText(Properties.Settings.Default.manifestFile, manifest.getJson());
@@ -397,6 +402,12 @@ namespace FS2020_Tree_Size_Editor
         {
             Close();
         }
+
+        private void BiomesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Biomes biomeForm = new Biomes();
+            biomeForm.Show();
+        }
     }
 
     public class Layout
@@ -408,7 +419,36 @@ namespace FS2020_Tree_Size_Editor
         }
         public string getJson()
         {
-            return "{\n  \"content\": [\n    {\n      \"path\": \"vegetation/10-asobo_species.xml\",\n      \"size\": " + size + ",\n      \"date\": 132387590510000000\n    }\n  ]\n}";
+            string installFolder = Properties.Settings.Default.installLocation;
+            if (File.Exists(installFolder + "\\Community\\Tree-Editor\\vegetation\\10-asobo_biomes.xml"))
+            {
+                return "{\n" +
+                    "  \"content\": [\n" +
+                    "    {\n" +
+                    "      \"path\": \"vegetation/10-asobo_species.xml\",\n" +
+                    "      \"size\": " + size + ",\n" +
+                    "      \"date\": 132387590510000000\n" +
+                    "    },\n" +
+                    "    {\n" +
+                    "      \"path\": \"vegetation/10-asobo_biomes.xml\",\n" +
+                    "      \"size\": " + (int)new FileInfo(Properties.Settings.Default.xmlFileBiomes).Length + ",\n" +
+                    "      \"date\": 132387590510000000\n" +
+                    "    }\n" +
+                    "  ]\n" +
+                    "}";
+            }
+            else
+            {
+                return "{\n" +
+                    "  \"content\": [\n" +
+                    "    {\n" +
+                    "      \"path\": \"vegetation/10-asobo_species.xml\",\n" +
+                    "      \"size\": " + size + ",\n" +
+                    "      \"date\": 132387590510000000\n" +
+                    "    }\n" +
+                    "  ]\n" +
+                    "}";
+            }
         }
     }
     public class Manifest
@@ -416,7 +456,7 @@ namespace FS2020_Tree_Size_Editor
         private string totalSize = "".PadLeft(20, '0');
         public void setSize(int fileSize)
         {
-            this.totalSize = fileSize.ToString().PadLeft(20 - fileSize.ToString().Length, '0');
+            totalSize = fileSize.ToString().PadLeft(20 - fileSize.ToString().Length, '0');
         }
         public string getJson()
         {
@@ -434,7 +474,7 @@ namespace FS2020_Tree_Size_Editor
                 "      \"OlderHistory\": \"\"\n" +
                 "    }\n" +
                 "  },\n" +
-                "  \"total_package_size\": \"" + this.totalSize + "\"\n" +
+                "  \"total_package_size\": \"" + totalSize + "\"\n" +
                 "}";
         }
     }

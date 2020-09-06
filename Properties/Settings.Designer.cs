@@ -70,5 +70,17 @@ namespace FS2020_Tree_Size_Editor.Properties {
                 this["layoutFile"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string xmlFileBiomes {
+            get {
+                return ((string)(this["xmlFileBiomes"]));
+            }
+            set {
+                this["xmlFileBiomes"] = value;
+            }
+        }
     }
 }

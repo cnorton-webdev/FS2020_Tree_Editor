@@ -50,6 +50,8 @@ namespace FS2020_Tree_Size_Editor
             this.settingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.btnReload = new System.Windows.Forms.Button();
+            this.editToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.biomesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.massEditGrp.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.changeMax)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.changeMin)).BeginInit();
@@ -213,7 +215,8 @@ namespace FS2020_Tree_Size_Editor
             // menuStrip1
             // 
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.fileToolStripMenuItem});
+            this.fileToolStripMenuItem,
+            this.editToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(1066, 24);
@@ -252,6 +255,21 @@ namespace FS2020_Tree_Size_Editor
             this.btnReload.Text = "Reload XML File";
             this.btnReload.UseVisualStyleBackColor = true;
             this.btnReload.Click += new System.EventHandler(this.BtnReload_Click);
+            // 
+            // editToolStripMenuItem
+            // 
+            this.editToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.biomesToolStripMenuItem});
+            this.editToolStripMenuItem.Name = "editToolStripMenuItem";
+            this.editToolStripMenuItem.Size = new System.Drawing.Size(39, 20);
+            this.editToolStripMenuItem.Text = "&Edit";
+            // 
+            // biomesToolStripMenuItem
+            // 
+            this.biomesToolStripMenuItem.Name = "biomesToolStripMenuItem";
+            this.biomesToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.biomesToolStripMenuItem.Text = "&Biomes";
+            this.biomesToolStripMenuItem.Click += new System.EventHandler(this.BiomesToolStripMenuItem_Click);
             // 
             // Form1
             // 
@@ -305,6 +323,8 @@ namespace FS2020_Tree_Size_Editor
         private System.Windows.Forms.ToolStripMenuItem settingsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem;
         private System.Windows.Forms.Button btnReload;
+        private System.Windows.Forms.ToolStripMenuItem editToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem biomesToolStripMenuItem;
     }
 }
 
