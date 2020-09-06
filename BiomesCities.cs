@@ -32,7 +32,7 @@ namespace FS2020_Tree_Size_Editor
             // Have we already saved into the community folder?
             if (Directory.Exists(installFolder + "\\Community\\Tree-Editor\\vegetation") && File.Exists(installFolder + "\\Community\\Tree-Editor\\vegetation\\15-asobo_biomes_cities.xml"))
             {
-                xmlFile = installFolder + "\\Community\\Tree-Editor\\vegetation\\15-asobo_biomes.xml";
+                xmlFile = installFolder + "\\Community\\Tree-Editor\\vegetation\\15-asobo_biomes_cities.xml";
             }
             // Microsoft Store
             else if (Directory.Exists(installFolder + "\\Official\\OneStore\\fs-base\\vegetation") && File.Exists(installFolder + "\\Official\\OneStore\\fs-base\\vegetation\\15-asobo_biomes_cities.xml"))
