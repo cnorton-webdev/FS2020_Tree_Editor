@@ -23,7 +23,7 @@ namespace FS2020_Tree_Size_Editor
             if (result == DialogResult.Yes)
             {
                 Properties.Settings.Default.Reset();
-                Close();
+                Application.Exit();
             }
         }
 

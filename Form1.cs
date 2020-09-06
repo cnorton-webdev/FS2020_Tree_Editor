@@ -31,6 +31,7 @@ namespace FS2020_Tree_Size_Editor
                         Properties.Settings.Default.installLocation = openFolder.SelectedPath;
                         Properties.Settings.Default.xmlFile = openFolder.SelectedPath + "\\Community\\Tree-Editor\\vegetation\\10-asobo_species.xml";
                         Properties.Settings.Default.xmlFileBiomes = openFolder.SelectedPath + "\\Community\\Tree-Editor\\vegetation\\10-asobo_biomes.xml";
+                        Properties.Settings.Default.xmlFileBiomesCities = openFolder.SelectedPath + "\\Community\\Tree-Editor\\vegetation\\15-asobo_biomes_cities.xml";
                         Properties.Settings.Default.layoutFile = openFolder.SelectedPath + "\\Community\\Tree-Editor\\layout.json";
                         Properties.Settings.Default.manifestFile = openFolder.SelectedPath + "\\Community\\Tree-Editor\\manifest.json";
                         Properties.Settings.Default.Save();
@@ -216,6 +217,10 @@ namespace FS2020_Tree_Size_Editor
             if (File.Exists(Properties.Settings.Default.xmlFileBiomes))
             {
                 xmlFileSize += (int)new FileInfo(Properties.Settings.Default.xmlFileBiomes).Length;
+            }
+            if (File.Exists(Properties.Settings.Default.xmlFileBiomesCities))
+            {
+                xmlFileSize += (int)new FileInfo(Properties.Settings.Default.xmlFileBiomesCities).Length;
             }
             Manifest manifest = new Manifest();
             manifest.setSize(xmlFileSize);
@@ -408,6 +413,12 @@ namespace FS2020_Tree_Size_Editor
             Biomes biomeForm = new Biomes();
             biomeForm.Show();
         }
+
+        private void BiomesCitiesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            BiomesCities biomeCitiesForm = new BiomesCities();
+            biomeCitiesForm.Show();
+        }
     }
 
     public class Layout
@@ -419,36 +430,40 @@ namespace FS2020_Tree_Size_Editor
         }
         public string getJson()
         {
-            string installFolder = Properties.Settings.Default.installLocation;
-            if (File.Exists(installFolder + "\\Community\\Tree-Editor\\vegetation\\10-asobo_biomes.xml"))
+            string jsonOut = "{\n" +
+                    "  \"content\": [\n";
+
+            if (File.Exists(Properties.Settings.Default.xmlFileBiomes))
             {
-                return "{\n" +
-                    "  \"content\": [\n" +
-                    "    {\n" +
-                    "      \"path\": \"vegetation/10-asobo_species.xml\",\n" +
-                    "      \"size\": " + size + ",\n" +
-                    "      \"date\": 132387590510000000\n" +
-                    "    },\n" +
-                    "    {\n" +
+                jsonOut += "    {\n" +
                     "      \"path\": \"vegetation/10-asobo_biomes.xml\",\n" +
                     "      \"size\": " + (int)new FileInfo(Properties.Settings.Default.xmlFileBiomes).Length + ",\n" +
                     "      \"date\": 132387590510000000\n" +
-                    "    }\n" +
-                    "  ]\n" +
-                    "}";
+                    "    }\n";
             }
-            else
+            if (File.Exists(Properties.Settings.Default.xmlFileBiomesCities))
             {
-                return "{\n" +
-                    "  \"content\": [\n" +
-                    "    {\n" +
-                    "      \"path\": \"vegetation/10-asobo_species.xml\",\n" +
-                    "      \"size\": " + size + ",\n" +
+                jsonOut += "    ,{\n" +
+                    "      \"path\": \"vegetation/15-asobo_biomes_cities.xml\",\n" +
+                    "      \"size\": " + (int)new FileInfo(Properties.Settings.Default.xmlFileBiomesCities).Length + ",\n" +
                     "      \"date\": 132387590510000000\n" +
-                    "    }\n" +
-                    "  ]\n" +
-                    "}";
+                    "    }\n";
             }
+
+            if (jsonOut.Length > 16)
+                jsonOut += "    ,{\n";
+            else
+                jsonOut += "    {\n";
+
+            jsonOut +=
+                "      \"path\": \"vegetation/10-asobo_species.xml\",\n" +
+                "      \"size\": " + size + ",\n" +
+                "      \"date\": 132387590510000000\n" +
+                "    }\n" +
+                "  ]\n" +
+                "}";
+
+            return jsonOut;
         }
     }
     public class Manifest

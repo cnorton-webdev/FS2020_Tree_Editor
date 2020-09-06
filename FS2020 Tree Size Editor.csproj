@@ -70,6 +70,12 @@
     <Compile Include="Biomes.Designer.cs">
       <DependentUpon>Biomes.cs</DependentUpon>
     </Compile>
+    <Compile Include="BiomesCities.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="BiomesCities.Designer.cs">
+      <DependentUpon>BiomesCities.cs</DependentUpon>
+    </Compile>
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -86,6 +92,9 @@
     </Compile>
     <EmbeddedResource Include="Biomes.resx">
       <DependentUpon>Biomes.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="BiomesCities.resx">
+      <DependentUpon>BiomesCities.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
