@@ -164,6 +164,7 @@ namespace FS2020_Tree_Size_Editor
             Manifest manifest = new Manifest();
             manifest.setSize(xmlFileSize);
             File.WriteAllText(Properties.Settings.Default.manifestFile, manifest.getJson());
+            lblToast.Text = "Successfully saved to community folder";
         }
 
         private void BtnSubtractMin_Click(object sender, EventArgs e)
