@@ -452,7 +452,7 @@ namespace FS2020_Tree_Size_Editor
             this.Margin = new System.Windows.Forms.Padding(2);
             this.MaximizeBox = false;
             this.Name = "Form1";
-            this.Text = "FS2020 Tree Size Editor - 1.3.2";
+            this.Text = "FS2020 Tree Size Editor - 1.3.3";
             this.Load += new System.EventHandler(this.Form1_Load);
             this.massEditGrp.ResumeLayout(false);
             this.massEditGrp.PerformLayout();
