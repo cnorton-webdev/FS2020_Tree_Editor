@@ -147,7 +147,11 @@ namespace FS2020_Tree_Size_Editor
                 }
                 variations[v.variantNumber - 1].FirstChild.Attributes["min"].Value = v.minimum.ToString();
                 variations[v.variantNumber - 1].FirstChild.Attributes["max"].Value = v.maximum.ToString();
-            }    
+            }
+            if (Directory.Exists(Properties.Settings.Default.installLocation + "\\Community\\Tree-Editor\\vegetation") == false)
+            {
+                Directory.CreateDirectory(Properties.Settings.Default.installLocation + "\\Community\\Tree-Editor\\vegetation");
+            }
             xmlTrees.Save(Properties.Settings.Default.xmlFile);
             int xmlFileSize = (int)new FileInfo(Properties.Settings.Default.xmlFile).Length;
             Layout layout = new Layout();
