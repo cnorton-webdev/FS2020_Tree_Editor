@@ -15,6 +15,10 @@ namespace FS2020_Tree_Size_Editor
 
         private void BiomesCities_Load(object sender, EventArgs e)
         {
+            if (Screen.PrimaryScreen.WorkingArea.Height < Height)
+            {
+                Height = Screen.PrimaryScreen.WorkingArea.Height - 40;
+            }
             loadBiomeXML();
         }
 

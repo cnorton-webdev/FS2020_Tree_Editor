@@ -348,7 +348,8 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(722, 801);
+            this.AutoScroll = true;
+            this.ClientSize = new System.Drawing.Size(737, 801);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.btnSave);
             this.Controls.Add(this.label6);
@@ -363,7 +364,6 @@
             this.Controls.Add(this.lstSpecies);
             this.Controls.Add(this.cmbRules);
             this.Controls.Add(this.lstRegions);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.Name = "Biomes";
