@@ -341,7 +341,7 @@ namespace FS2020_Tree_Size_Editor
                         "    }\n";
                 }
 
-                if (jsonOut.Length > 16)
+                if (jsonOut.Length > 20)
                     jsonOut += "    ,{\n";
                 else
                     jsonOut += "    {\n";

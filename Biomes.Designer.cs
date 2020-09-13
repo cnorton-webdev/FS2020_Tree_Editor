@@ -363,6 +363,7 @@
             this.Controls.Add(this.lstSpecies);
             this.Controls.Add(this.cmbRules);
             this.Controls.Add(this.lstRegions);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.Name = "Biomes";
